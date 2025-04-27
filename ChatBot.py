@@ -1,7 +1,9 @@
+#Bibliotecas.
 import nltk 
 from nltk.chat.util import Chat, reflections 
 from tkinter import * 
 
+#Respostas esperadas pelo Chat, com cada número respectivamente colocado para as respostas.
 patterns = [
     (r'1', ['R: GTA RP (Roleplay) é um modo de jogo no GTA V em que os jogadores interpretam personagens com histórias, profissões e regras, como se fosse uma vida real dentro do jogo.']),
     (r'2', ['R: Sim, é obrigatório ter o GTA V original na Steam, Epic Games ou Rockstar Launcher para jogar GTA RP.']),
@@ -16,18 +18,21 @@ patterns = [
 
 FIVeM = Chat(patterns, reflections) 
 
+#Colocando resposta para o usuário, e a forma do usuário sair.
 def speak(): 
   escolha_usuario = entry.get() 
   if escolha_usuario.lower() == "9": 
     chat_log.insert(END, "FIVeM: Até logo.👌 ") 
     janela.quit() 
 
+    #Caso usuário escolha não sair, o Chat continuará respondendo.
   else:
     resposta = FIVeM.respond(escolha_usuario) 
     chat_log.insert(END, f"Você: {escolha_usuario}\n") 
     chat_log.insert(END, f"FIVeM: {resposta}\n") 
     entry.delete(0, END) 
 
+#Tela de Boas-Vindas e todas as perguntas que podem ser feitas.
 def interação_com_usuario(): 
   chat_log.insert(END, "FIVeM: Olá. Me chamo FIVeM e estou aqui para ajudar. Digite o número da pergunta que deseja saber:😊\n")
   chat_log.insert(END, "1 - O que é GTA RP?\n")
@@ -40,10 +45,11 @@ def interação_com_usuario():
   chat_log.insert(END, "8 - GTA RP é gratuito?\n")
   chat_log.insert(END, "9 - Sair😘\n")
 
+#Janela da biblioteca Tkinter
 janela = Tk() 
 janela.title("FIVeM") 
 
-
+#Definindo tamanho da janela.
 chat_log = Text(janela, height=30, width=100)
 chat_log.pack() 
 
@@ -51,10 +57,11 @@ chat_log.pack()
 entry = Entry(janela, width=100)
 entry.pack() 
 
-
+#Botão de envio de mensagem para o Chat.
 send_button = Button(janela, text="Enviar", command=speak)
 send_button.pack() 
 
 interação_com_usuario()
 
+#Loop para janela continuar aberta até que o usuário escolha sair. 
 janela.mainloop()
